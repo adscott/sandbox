@@ -9,6 +9,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.synced_folder './workspace', '/home/vagrant/workspace'
   config.ssh.forward_agent = true
   config.berkshelf.enabled = true
+  config.vm.provision :shell, :inline => 'sudo apt-get update && sudo apt-get install -y python-software-properties && sudo add-apt-repository ppa:chris-lea/node.js && sudo apt-get update'
   config.vm.provision 'chef_solo' do |chef|
     chef.run_list = [
       'recipe[sandbox::rvm]',
