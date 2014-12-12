@@ -1,2 +1,4 @@
 .vagrant
 workspace/*
+.DS_Store
+
