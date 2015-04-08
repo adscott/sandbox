@@ -22,5 +22,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       'recipe[rvm::vagrant]'
     ]
   end
-  config.vm.provision :shell, :inline => "echo -e '#{File.read("#{Dir.home}/.gitconfig")}' > '/home/vagrant/.gitconfig'" if File.exist?("#{Dir.home}/.gitconfig")
+  config.vm.provision 'file', source: '~/.gitconfig', destination: '.gitconfig'
+  config.vm.provision 'file', source: 'files/sshconfig', destination: '.ssh/config'
 end
