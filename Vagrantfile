@@ -18,6 +18,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       'recipe[sandbox::rvm]',
       'recipe[sandbox::heroku]',
       'recipe[sandbox::packages]',
+      'recipe[sandbox::wkhtmltopdf]',
       'recipe[rvm::user]',
       'recipe[rvm::vagrant]'
     ]
