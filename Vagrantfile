@@ -25,4 +25,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
   config.vm.provision 'file', source: '~/.gitconfig', destination: '.gitconfig'
   config.vm.provision 'file', source: 'files/sshconfig', destination: '.ssh/config'
+
+  if Vagrant.has_plugin?('vagrant-proxyconf') && ENV.has_key?('http_proxy')
+    config.proxy.http = ENV['http_proxy']
+  end
 end

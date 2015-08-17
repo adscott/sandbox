@@ -1,7 +1,6 @@
 remote_file '/tmp/wkhtmltopdf.deb' do
-  source 'http://downloads.sourceforge.net/project/wkhtmltopdf/0.12.2.1/wkhtmltox-0.12.2.1_linux-precise-amd64.deb'
+  source 'http://download.gna.org/wkhtmltopdf/0.12/0.12.2.1/wkhtmltox-0.12.2.1_linux-precise-amd64.deb'
   mode 0644
-  checksum '320efbfc109b823d0eae41e1818c52d6b4f62d40'
 end
 
 dpkg_package 'wkhtmltopdf' do
