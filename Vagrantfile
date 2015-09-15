@@ -5,13 +5,14 @@
 VAGRANTFILE_API_VERSION = '2'
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  config.vm.box = 'hashicorp/precise64'
+  config.vm.box = 'ubuntu/trusty64'
   config.vm.synced_folder './workspace', '/home/vagrant/workspace'
   config.vm.network 'forwarded_port', guest: 9292, host: 9292
   config.vm.network 'forwarded_port', guest: 9393, host: 9393
   config.vm.network 'forwarded_port', guest: 8888, host: 8888
   config.vm.network 'forwarded_port', guest: 4000, host: 4000
   config.ssh.forward_agent = true
+  config.omnibus.chef_version = '12.3.0'
   config.berkshelf.enabled = true
   config.vm.provision :shell, :inline => 'sudo apt-get update && sudo apt-get install -y python-software-properties && sudo add-apt-repository ppa:chris-lea/node.js && sudo apt-get update'
   config.vm.provision 'chef_solo' do |chef|
