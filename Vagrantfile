@@ -21,8 +21,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       'recipe[sandbox::heroku]',
       'recipe[sandbox::packages]',
       'recipe[sandbox::wkhtmltopdf]',
-      'recipe[rvm::user]',
-      'recipe[rvm::vagrant]'
+      'recipe[rvm::user]'
     ]
   end
   config.vm.provision 'file', source: '~/.gitconfig', destination: '.gitconfig'
@@ -30,5 +29,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   if Vagrant.has_plugin?('vagrant-proxyconf') && ENV.has_key?('http_proxy')
     config.proxy.http = ENV['http_proxy']
+  end
+
+  config.vm.provider :virtualbox do |vb|
+    vb.customize ['modifyvm', :id, '--memory', '2048']
   end
 end
