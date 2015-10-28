@@ -14,7 +14,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.ssh.forward_agent = true
   config.omnibus.chef_version = '12.3.0'
   config.berkshelf.enabled = true
-  config.vm.provision :shell, :inline => 'sudo apt-get update && sudo apt-get install -y python-software-properties && sudo add-apt-repository ppa:chris-lea/node.js && sudo apt-get update'
+  config.vm.provision :shell, inline: 'sudo apt-get update && sudo apt-get install -y python-software-properties && sudo add-apt-repository ppa:chris-lea/node.js && sudo apt-get update'
   config.vm.provision 'chef_solo' do |chef|
     chef.run_list = [
       'recipe[sandbox::rvm]',
@@ -26,6 +26,17 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
   config.vm.provision 'file', source: '~/.gitconfig', destination: '.gitconfig'
   config.vm.provision 'file', source: 'files/sshconfig', destination: '.ssh/config'
+
+  config.vm.provision :shell, inline: [
+    'apt-get -y -q update',
+    'apt-get -y -q upgrade',
+    'apt-get -y -q install software-properties-common htop',
+    'add-apt-repository ppa:webupd8team/java',
+    'apt-get -y -q update',
+    'echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | sudo /usr/bin/debconf-set-selections',
+    'apt-get -y -q install oracle-java8-installer',
+    'apt-get -y -q install maven'
+  ].join(' && ')
 
   if Vagrant.has_plugin?('vagrant-proxyconf') && ENV.has_key?('http_proxy')
     config.proxy.http = ENV['http_proxy']
