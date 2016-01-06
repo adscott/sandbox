@@ -7,6 +7,7 @@ VAGRANTFILE_API_VERSION = '2'
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = 'ubuntu/trusty64'
   config.vm.synced_folder './workspace', '/home/vagrant/workspace'
+  config.vm.synced_folder File.expand_path('~/.aws'), '/home/vagrant/.aws'
   config.vm.network 'forwarded_port', guest: 9292, host: 9292
   config.vm.network 'forwarded_port', guest: 9393, host: 9393
   config.vm.network 'forwarded_port', guest: 8888, host: 8888
