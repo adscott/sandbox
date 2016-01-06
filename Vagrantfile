@@ -41,6 +41,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   if Vagrant.has_plugin?('vagrant-proxyconf') && ENV.has_key?('http_proxy')
     config.proxy.http = ENV['http_proxy']
+    config.proxy.no_proxy = "localhost,127.0.0.1,.example.com,.oracle.com"
+    config.apt_proxy.http = ENV['http_proxy']
+    config.apt_proxy.https = 'DIRECT'
   end
 
   config.vm.provider :virtualbox do |vb|
