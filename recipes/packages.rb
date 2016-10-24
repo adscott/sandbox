@@ -1,6 +1,0 @@
-package 'vim'
-package 'memcached'
-package 'nodejs'
-package 'imagemagick'
-package 'xfonts-75dpi'
-package 'libgmp3-dev'
