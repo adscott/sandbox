@@ -16,6 +16,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provision 'shell', inline: 'apt-get --yes upgrade'
 
   [
+    'docker',
     'golang',
     'ruby',
     'nodejs',
