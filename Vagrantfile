@@ -6,6 +6,7 @@ VAGRANTFILE_API_VERSION = '2'
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = 'ubuntu/yakkety64'
+  config.vm.network 'private_network', ip: "192.168.50.4"
   config.vm.synced_folder './workspace', '/home/ubuntu/workspace'
   config.vm.synced_folder File.expand_path('~/.aws'), '/home/ubuntu/.aws'
   config.ssh.forward_agent = true
