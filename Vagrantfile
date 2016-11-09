@@ -16,7 +16,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provision 'shell', inline: 'apt-get --yes upgrade'
 
   [
-    'docker',
+    'docker.io',
     'golang',
     'ruby',
     'nodejs',
@@ -25,6 +25,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   ].each do |pkg|
     config.vm.provision 'shell', inline: "apt-get --yes install #{pkg}"
   end
+
+  config.vm.provision 'shell', inline: 'usermod -a -G docker ubuntu'
 
   if Vagrant.has_plugin?('vagrant-proxyconf') && ENV.has_key?('http_proxy')
     config.proxy.http = ENV['http_proxy']
