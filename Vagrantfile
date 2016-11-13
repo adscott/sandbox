@@ -13,12 +13,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provision 'file', source: '~/.gitconfig', destination: '.gitconfig'
   config.vm.provision 'file', source: 'files/sshconfig', destination: '.ssh/config'
 
+  config.vm.provision 'shell', inline: 'curl -sL https://deb.nodesource.com/setup_7.x | bash -'
   config.vm.provision 'shell', inline: 'apt-get --yes update'
   config.vm.provision 'shell', inline: 'apt-get --yes upgrade'
 
   [
     'docker.io',
-    'golang',
+    'golang-1.7',
     'ruby',
     'nodejs',
     'python',
@@ -31,12 +32,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   if Vagrant.has_plugin?('vagrant-proxyconf') && ENV.has_key?('http_proxy')
     config.proxy.http = ENV['http_proxy']
-    config.proxy.no_proxy = "localhost,127.0.0.1,.example.com,.oracle.com"
+    config.proxy.no_proxy = 'localhost,127.0.0.1,.example.com,.oracle.com';
     config.apt_proxy.http = ENV['http_proxy']
     config.apt_proxy.https = 'DIRECT'
   end
 
   config.vm.provider :virtualbox do |vb|
-    vb.customize ['modifyvm', :id, '--memory', '2048']
+    vb.customize ['modifyvm', :id, '--memory', '4096']
   end
 end
